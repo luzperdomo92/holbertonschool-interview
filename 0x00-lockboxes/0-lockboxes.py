@@ -1,5 +1,6 @@
+
 #!/usr/bin/python3
-"""Lockboxes"""
+""" Lockboxes """
 
 
 def canUnlockAll(boxes):
@@ -11,13 +12,11 @@ def canUnlockAll(boxes):
     if (len(boxes) == 0):
         return False
 
-    key = [0]
-    for array in key:
-        for elem in boxes[array]:
-            if elem not in key and elem != array and elem < len(boxes) and
-            elem != 0:
-                key.append(elem)
-    if len(key) == len(boxes):
+    keys = [0]
+    for i in keys:
+        for j in boxes[i]:
+            if j not in keys and j != i and j < len(boxes) and j != 0:
+                keys.append(j)
+    if len(keys) == len(boxes):
         return True
-    else:
-        return False
+    return False
