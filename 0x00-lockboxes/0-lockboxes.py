@@ -1,8 +1,9 @@
 #!/usr/bin/python3
-"""function to determinate how many baxes can be open"""
+"""Lockboxes"""
 
 
 def canUnlockAll(boxes):
+    """ determines if all the boxes can be opened """
 
     if (type(boxes) is not list):
         return False
