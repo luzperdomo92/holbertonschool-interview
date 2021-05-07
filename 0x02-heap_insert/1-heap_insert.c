@@ -10,16 +10,16 @@
  */
 int count_nodes(heap_t *root)
 {
-    int n;
+int n;
 
-    if (root == NULL)
-        return (0);
-    if (root)
-        n = 1;
-    n += count_nodes(root->left);
-    n += count_nodes(root->right);
+if (root == NULL)
+    return (0);
+if (root)
+    n = 1;
+n += count_nodes(root->left);
+n += count_nodes(root->right);
 
-    return (n);
+return (n);
 }
 
 /**
@@ -30,15 +30,15 @@ int count_nodes(heap_t *root)
 
 int is_perfect(const heap_t *tree)
 {
-    int p1, p2;
+int p1, p2;
 
-    if (tree == NULL)
-        return (0);
-    p1 = count_nodes(tree->left);
-    p2 = count_nodes(tree->right);
-    if (p1 == p2)
-        return (1);
+if (tree == NULL)
     return (0);
+p1 = count_nodes(tree->left);
+p2 = count_nodes(tree->right);
+if (p1 == p2)
+    return (1);
+return (0);
 }
 
 /**
@@ -49,25 +49,25 @@ int is_perfect(const heap_t *tree)
  */
 heap_t *find_parent(heap_t *root)
 {
-    heap_t *p;
-    int l, r, lf, rf;
+heap_t *p;
+int l, r, lf, rf;
 
-    if (root == NULL)
-        return (NULL);
+if (root == NULL)
+    return (NULL);
 
-    p = root;
-    l = count_nodes(p->left);
-    r = count_nodes(p->right);
-    lf = is_perfect(p->left);
-    rf = is_perfect(p->right);
+p = root;
+l = count_nodes(p->left);
+r = count_nodes(p->right);
+lf = is_perfect(p->left);
+rf = is_perfect(p->right);
 
-    if (!l || !r)
-        return (p);
-    if (!lf || (lf && rf && l == r))
-        return (find_parent(p->left));
-    else if (!rf || (lf && rf && l > r))
-        return (find_parent(p->right));
+if (!l || !r)
     return (p);
+if (!lf || (lf && rf && l == r))
+    return (find_parent(p->left));
+else if (!rf || (lf && rf && l > r))
+    return (find_parent(p->right));
+return (p);
 }
 
 /**
@@ -78,21 +78,21 @@ heap_t *find_parent(heap_t *root)
  */
 void sort_nodes(heap_t **new)
 {
-    heap_t *current;
-    int aux;
+heap_t *current;
+int aux;
 
-    current = *new;
-    while (current->parent)
+current = *new;
+while (current->parent)
+{
+    if (current->parent->n < current->n)
     {
-        if (current->parent->n < current->n)
-        {
-            aux = current->parent->n;
-            current->parent->n = current->n;
-            current->n = aux;
-            *new = current->parent;
-        }
-        current = current->parent;
+        aux = current->parent->n;
+        current->parent->n = current->n;
+        current->n = aux;
+        *new = current->parent;
     }
+    current = current->parent;
+}
 }
 /**
  * heap_insert - inserts a value into a Max Binary Heap
@@ -103,19 +103,19 @@ void sort_nodes(heap_t **new)
  */
 heap_t *heap_insert(heap_t **root, int value)
 {
-    heap_t *new;
-    heap_t *parent;
+heap_t *new;
+heap_t *parent;
 
-    parent = find_parent(*root);
-    new = binary_tree_node(parent, value);
-    if (new == NULL)
-        return (NULL);
-    if (parent == NULL)
-        *root = new;
-    else if (!(parent->left))
-        parent->left = new;
-    else
-        parent->right = new;
-    sort_nodes(&new);
-    return (new);
+parent = find_parent(*root);
+new = binary_tree_node(parent, value);
+if (new == NULL)
+    return (NULL);
+if (parent == NULL)
+    *root = new;
+else if (!(parent->left))
+    parent->left = new;
+else
+    parent->right = new;
+sort_nodes(&new);
+return (new);
 }
